@@ -149,4 +149,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // ============ RÔLES ============
     Route::get('/roles', [RoleController::class, 'index']);
+    Route::get('/test', function () {
+        return response()->json(['message' => 'API en ligne 🚀']);
+    });
+
 });
