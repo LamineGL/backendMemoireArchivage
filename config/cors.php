@@ -25,6 +25,8 @@ return [
         'http://localhost:3000',
         'http://127.0.0.1:3000',
         'http://192.168.1.8:4200',
+        'https://frontmemoirearchivage.vercel.app',
+        'https://*.vercel.app', //
     ],
 
     'allowed_origins_patterns' => [
@@ -37,6 +39,6 @@ return [
 
     'max_age' => 0,
 
-    'supports_credentials' => false,
+    'supports_credentials' => true,
 
 ];
