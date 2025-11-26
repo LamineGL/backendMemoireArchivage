@@ -32,14 +32,28 @@ class StatistiqueController extends Controller
                 ->where('documents.statut', 'actif')
                 ->select('departements.nom_departement', DB::raw('count(*) as total'))
                 ->groupBy('departements.nom_departement')
-                ->get(),
+                ->get()
+                ->map(function($item) {
+                    return [
+                        'nom_departement' => $item->nom_departement,
+                        'total' => (int) $item->total
+                    ];
+                })
+                ->toArray(),  // ✅ Convertir en tableau
 
             'documents_par_type' => DB::table('documents')
                 ->join('type_documents', 'documents.type_document_id', '=', 'type_documents.id')
                 ->where('documents.statut', 'actif')
                 ->select('type_documents.libelle_type', DB::raw('count(*) as total'))
                 ->groupBy('type_documents.libelle_type')
-                ->get(),
+                ->get()
+                ->map(function($item) {
+                    return [
+                        'libelle_type' => $item->libelle_type,
+                        'total' => (int) $item->total
+                    ];
+                })
+                ->toArray(),  // ✅ Convertir en tableau
 
             'activite_recente' => LogAction::with(['user:id,nom_complet', 'document:id,titre'])
                 ->orderBy('created_at', 'desc')
